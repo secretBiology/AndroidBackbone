@@ -15,6 +15,9 @@ f.make_folder(base_activity_path)
 with open("%s/%s%s" % (base_activity_path, s.BASE_ACTIVITY, s.JAVA_EXTENSION), 'w') as file:
     file.write(Templates.base_activity())
 
+with open("%s/%s%s" % (base_activity_path, s.ACTIVITY_SETUP, s.JAVA_EXTENSION), 'w') as file:
+    file.write(Templates.activity_setup())
+
 # Database
 f.make_folder(base_database_path)
 with open("%s/%s%s" % (base_database_path, s.DATABASE_MANAGER, s.JAVA_EXTENSION), 'w') as file:
@@ -38,8 +41,14 @@ with open("%s/values/dimens.xml" % s.BASE_RES, 'w') as file:
 with open("%s/drawable/%s.xml" % (s.BASE_RES, s.SIDE_NAV_BAR), 'w') as file:
     file.write(Resource.side_nav())
 
+with open("%s/drawable/%s.xml" % (s.BASE_RES, s.ICON_HOME), 'w') as file:
+    file.write(Resource.home_icon())
+
 with open("%s/menu/%s.xml" % (s.BASE_RES, s.BASE_MENU), 'w') as file:
-    file.write(Resource.strings())
+    file.write(Resource.base_menu())
+
+with open("%s/menu/%s.xml" % (s.BASE_RES, s.BASE_DRAWER), 'w') as file:
+    file.write(Resource.base_drawer())
 
 # Layouts
 

@@ -10,8 +10,8 @@ def base_activity():
     with open(absolute_path, 'r') as base_file:
         file_data = base_file.read()
 
-    file_data = file_data.replace('$CURRENT_PACKAGE$', s.PACKAGE_NAME + "." + s.UI_FOLDER.lower())
-    file_data = file_data.replace('$PACKAGE_NAME$', s.PACKAGE_NAME)
+    file_data = file_data.replace('$CURRENT_PACKAGE$', s.PACKAGE_NAME.lower() + "." + s.UI_FOLDER.lower())
+    file_data = file_data.replace('$PACKAGE_NAME$', s.PACKAGE_NAME.lower())
     file_data = file_data.replace('$BASE_ACTIVITY$', s.BASE_ACTIVITY)
     file_data = file_data.replace('$BASE_LAYOUT$', s.BASE_LAYOUT)
     file_data = file_data.replace('$TOOLBAR$', s.TOOLBAR)
@@ -30,7 +30,23 @@ def database_manager():
     absolute_path = os.path.join(script_path, relative_path)
     with open(absolute_path, 'r') as base_file:
         file_data = base_file.read()
-    file_data = file_data.replace('$CURRENT_PACKAGE$', s.PACKAGE_NAME + "." + s.DATABASE_FOLDER.lower())
+    file_data = file_data.replace('$CURRENT_PACKAGE$', s.PACKAGE_NAME.lower() + "." + s.DATABASE_FOLDER.lower())
     file_data = file_data.replace('$PACKAGE_NAME$', s.PACKAGE_NAME)
     file_data = file_data.replace('$DATABASE_MANAGER$', s.DATABASE_MANAGER)
+    return file_data
+
+
+def activity_setup():
+    relative_path = "files/SetUpActivity.java"
+    absolute_path = os.path.join(script_path, relative_path)
+    with open(absolute_path, 'r') as base_file:
+        file_data = base_file.read()
+    file_data = file_data.replace('$CURRENT_PACKAGE$', s.PACKAGE_NAME.lower() + "." + s.UI_FOLDER.lower())
+    file_data = file_data.replace('$ACTIVITY_NAME$', s.ACTIVITY_SETUP)
+    file_data = file_data.replace('$PACKAGE_NAME$', s.PACKAGE_NAME.lower())
+    file_data = file_data.replace('$BASE_VIEW$', s.BASE_VIEW)
+    file_data = file_data.replace('$TABS$', s.TABS)
+    file_data = file_data.replace('$NAV_VIEW$', s.NAV_VIEW)
+    file_data = file_data.replace('$BASE_HEADER$', s.BASE_HEADER)
+    file_data = file_data.replace('$BASE_DRAWER$', s.BASE_DRAWER)
     return file_data

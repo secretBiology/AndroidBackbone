@@ -29,7 +29,7 @@ public abstract class $BASE_ACTIVITY$ extends AppCompatActivity
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.$DRAWER_LAYOUT$); //Base drawer layout
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                 this, drawer, toolbar, R.string.$NAV_OPEN$, R.string.$NAV_CLOSE$);l̥
+                 this, drawer, toolbar, R.string.$NAV_OPEN$, R.string.$NAV_CLOSE$);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView = (NavigationView) findViewById(R.id.$NAV_VIEW$); //Base navigation view

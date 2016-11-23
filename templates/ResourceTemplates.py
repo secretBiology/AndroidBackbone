@@ -13,6 +13,16 @@ def base_menu():
     return file_data
 
 
+def base_drawer():
+    relative_path = "files/base_drawer.xml"
+    absolute_path = os.path.join(script_path, relative_path)
+    with open(absolute_path, 'r') as base_file:
+        file_data = base_file.read()
+    file_data = file_data.replace('$NAV_HOME$', s.NAV_HOME)
+    file_data = file_data.replace('$ICON_HOME$', s.ICON_HOME)
+    return file_data
+
+
 def strings():
     relative_path = "files/strings.xml"
     absolute_path = os.path.join(script_path, relative_path)
@@ -36,6 +46,14 @@ def dimens():
 
 def side_nav():
     relative_path = "files/%s.xml" % s.SIDE_NAV_BAR
+    absolute_path = os.path.join(script_path, relative_path)
+    with open(absolute_path, 'r') as base_file:
+        file_data = base_file.read()
+    return file_data
+
+
+def home_icon():
+    relative_path = "files/%s.xml" % s.ICON_HOME
     absolute_path = os.path.join(script_path, relative_path)
     with open(absolute_path, 'r') as base_file:
         file_data = base_file.read()
