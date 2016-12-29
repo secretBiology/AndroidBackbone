@@ -12,7 +12,7 @@
         android:layout_width="match_parent" android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <android.support.design.widget.FloatingActionButton android:id="@+id/$BASE_FAB"
+    <android.support.design.widget.FloatingActionButton android:id="@+id/$BASE_FAB$"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_gravity="bottom|end" android:layout_margin="@dimen/$FAB_MARGIN$"
         android:scaleType="fitXY" android:src="@android:drawable/ic_input_add"

@@ -38,6 +38,9 @@ with open("%s/values/styles.xml" % s.BASE_RES, 'w') as file:
 with open("%s/values/dimens.xml" % s.BASE_RES, 'w') as file:
     file.write(Resource.dimens())
 
+with open("%s/values/material_colors.xml" % s.BASE_RES, 'w') as file:
+    file.write(Resource.material_colors())
+
 with open("%s/drawable/%s.xml" % (s.BASE_RES, s.SIDE_NAV_BAR), 'w') as file:
     file.write(Resource.side_nav())
 

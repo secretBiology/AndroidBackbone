@@ -1,8 +1,8 @@
 # Package Settings
 
 
-PACKAGE_NAME = "com.secretbiology.BankManager"
-APP_NAME = "BankManager"
+PACKAGE_NAME = "com.rohitsuratekar.NCBSinfo"
+APP_NAME = "NCBSinfo"
 BASE_FOLDER = "output"
 
 BASE_ACTIVITY = "BaseActivity"
@@ -38,7 +38,7 @@ ACTION_SETTINGS = "action_settings"
 
 # Database
 DATABASE_FOLDER = "database"
-DATABASE_MANAGER = "DataBase"
+DATABASE_MANAGER = "Database"
 
 BASE_JAVA = BASE_FOLDER + "/java"
 BASE_RES = BASE_FOLDER + "/res"
