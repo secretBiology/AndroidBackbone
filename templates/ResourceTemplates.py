@@ -67,9 +67,10 @@ def styles():
         file_data = base_file.read()
     return file_data
 
+
 def material_colors():
-	relative_path = "files/material_colors.xml"
-	absolute_path = os.path.join(script_path, relative_path)
-	with open(absolute_path, 'r') as base_file:
-		file_data = base_file.read()
-	return file_data
+    relative_path = "files/material_colors.xml"
+    absolute_path = os.path.join(script_path, relative_path)
+    with open(absolute_path, 'r') as base_file:
+        file_data = base_file.read()
+    return file_data

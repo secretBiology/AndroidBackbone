@@ -1,8 +1,8 @@
 # Package Settings
 
 
-PACKAGE_NAME = "com.rohitsuratekar.NCBSinfo"
-APP_NAME = "NCBSinfo"
+PACKAGE_NAME = "com.secretbiology.bankmanager"
+APP_NAME = "BankManager"
 BASE_FOLDER = "output"
 
 BASE_ACTIVITY = "BaseActivity"
