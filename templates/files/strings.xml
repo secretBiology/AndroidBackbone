@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">$APP_NAME$</string>
-    <string name="$NAV_OPEN$">Open</string>
-    <string name="$NAV_CLOSE$">Close</string>
-
-    <string name="settings">Settings</string>
-    <string name="home">Home</string>
-</resources>
