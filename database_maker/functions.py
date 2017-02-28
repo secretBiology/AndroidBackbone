@@ -45,11 +45,12 @@ def add(model_name) -> str:
            "\n\t Log.inform(\"Added new entry to database\");\n\treturn id;\n\t}" % model_name
 
 
-def content_values(model_name, var_list) -> str:
+def content_values(model_name, var_list, primary_key) -> str:
     s = "private ContentValues putContentValues(%s model) {\n\tContentValues values = new ContentValues();\n\t" % model_name
     for m in var_list:
-        v = m
-        s += "values.put(%s, model.%s());\n\t" % (v.name.upper(), "get" + first(v.name))
+        if m != primary_key:
+            v = m
+            s += "values.put(%s, model.%s());\n\t" % (v.name.upper(), "get" + first(v.name))
     s += "return values;\n\t}"
     return s
 
@@ -62,7 +63,7 @@ def delete(name, primary_key_var) -> str:
 
 def update(name, primary_key_var) -> str:
     return "public int update(%s model) {\n\t int updated = db.update(TABLE, putContentValues(model), %s + \"= ?\", " \
-           "new String[]{String.valueOf(model.%s())});" % (
+           "new String[]{String.valueOf(model.%s())});\n\treturn updated;}" % (
                name, primary_key_var.name.upper(), "get" + first(primary_key_var.name))
 
 
@@ -70,7 +71,7 @@ def get_all(name) -> str:
     s = "public List<%s> getAll() {\n\t String query = new QueryBuilder().selectAll().fromTable(TABLE).build();\n\t" % name
     s += "List<%s> all = new ArrayList<>();\n\t" % name
     s += "Cursor cursor = db.rawQuery(query, null);\n\t if (cursor != null) {\n\t if (cursor.moveToFirst()) {\n\tdo\n\t{all.add(convertRow(cursor));\n\t } " \
-         "while (cursor.moveToNext());}\n\tcursor.close();\n\t}"
+         "while (cursor.moveToNext());}\n\tcursor.close();}\n\treturn all;}"
     return s
 
 

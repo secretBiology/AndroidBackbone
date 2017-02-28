@@ -29,6 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity
         new SetUpActivity(this, currentActivity);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout); //Base drawer layout
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,6 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity
                     @Override
                     public void run() {
                         startActivity(new Intent(getBaseContext(), c.getaClass()));
+                        animateTransition();
                     }
                 }, 300);
             }
@@ -74,6 +76,21 @@ public abstract class BaseActivity extends AppCompatActivity
             }
         }
         return null;
+    }
+
+    public void animateTransition() {
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+            animateTransition();
+        }
     }
 
     protected abstract CurrentActivity setUpActivity();

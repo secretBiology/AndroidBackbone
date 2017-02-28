@@ -30,7 +30,7 @@ def convert_row(name, var_list):
     s = " private %(name)s convertRow(Cursor cursor) {\n\t%(name)s m = new %(name)s();\n\t" % dict({"name": name})
     for m in var_list:
         v = m  # type: Variable
-        s += "m.%s(cursor.%s(cursor.getColumnIndex(%s)))\n\t" % (
+        s += "m.%s(cursor.%s(cursor.getColumnIndex(%s)));\n\t" % (
             "set" + first(v.name), v.variable_type.value.return_type, v.name.upper())
     s += "return m;\n\t}"
     return s
@@ -41,6 +41,7 @@ class Maker:
         self.name = name
         self.variables = variables
         self.primary_key = None
+        self.serialization = False
         for v in variables:
             if v.variable_type.value.sql == "INTEGER PRIMARY KEY":
                 self.primary_key = v
@@ -48,12 +49,19 @@ class Maker:
 
     def make_model(self):
         with open(self.name + ".java", "w") as f:
+            if self.serialization:
+                print(
+                    "import com.google.gson.annotations.Expose;\nimport com.google.gson.annotations.SerializedName;\n",
+                    file=f)
             print("public class " + self.name + " {", file=f)
             for m in self.variables:
                 v = m  # type: Variable
+                if self.serialization:
+                    print("\t@SerializedName(\"%s\")" % v.name, file=f)
+                    print("\t@Expose", file=f)
                 print("\tprivate %s %s;" % (v.variable_type.value.java, v.name), file=f)
 
-            print("\n\t%s() {\n\t}\n" % self.name, file=f)
+            print("\n\tpublic %s() {\n\t}\n" % self.name, file=f)
 
             for m in self.variables:
                 print(make_setter(m), file=f)
@@ -84,6 +92,6 @@ class Maker:
                 print(update(self.name, self.primary_key), file=f)
             else:
                 print("//No primary key found, hence no delete and update method is created", file=f)
-            print(content_values(self.name, self.variables), file=f)
+            print(content_values(self.name, self.variables,self.primary_key), file=f)
             print(convert_row(self.name, self.variables), file=f)
             print("}", file=f)
