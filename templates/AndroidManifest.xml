@@ -16,6 +16,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.Home"/>
+       <activity
+        android:name=".activities.login.Login"
+        android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
     </application>
 
 </manifest>

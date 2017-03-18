@@ -57,6 +57,8 @@ file_list = [
     ["AppPrefs.java", java_path + "preferences"],
     ["Login.java", java_path + "activities/login"],
     ["login.xml", resource_path + "layout"],
+    ["RetroCalls.java", java_path + "background"],
+    ["RetroServices.java", java_path + "background"],
     ["LoginUser.java", java_path + "background/tasks"]
 ]
 

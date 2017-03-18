@@ -81,7 +81,7 @@ public class Login extends BaseActivity {
         if (dialog.isShowing()) {
             dialog.dismiss();
         }
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(Login.this)
                 .setTitle("Oops!")
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
