@@ -5,7 +5,8 @@ import $PACKAGE_NAME$.activities.Home;
 
 public enum CurrentActivity {
 
-    HOME(Home.class, R.string.home, R.layout.home, R.id.nav_home);
+    HOME(Home.class, R.string.home, R.layout.home, R.id.nav_home),
+    LOGIN(Login.class, R.string.login, R.layout.login, R.id.nav_header_icon);
 
     private Class aClass;
     private int title;

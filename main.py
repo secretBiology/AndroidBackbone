@@ -53,6 +53,11 @@ file_list = [
     ["splash.xml", resource_path + "layout"],
     ["strings.xml", resource_path + "values"],
     ["styles.xml", resource_path + "values"],
+    ["Preferences.java", java_path + "preferences"],
+    ["AppPrefs.java", java_path + "preferences"],
+    ["Login.java", java_path + "activities/login"],
+    ["login.xml", resource_path + "layout"],
+    ["LoginUser.java", java_path + "background/tasks"]
 ]
 
 for f in file_list:
