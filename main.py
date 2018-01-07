@@ -1,68 +1,88 @@
+"""
+Simple script creates backbone template for typical android projects
+"""
+
 import os
-
-from scripts.settings import name_of_package, name_of_app
-
-base_path = name_of_package.replace(".", "/")
-base_path += "/"
+import sys
+from shutil import copyfile
 
 
-def make_folder(path):
+def make_folder(path_name):
     """
     Makes folder given path
-    :param path: path of folder
+    :param path_name: path of folder
     :return: void
     """
-    if not os.path.exists(path):
-        os.makedirs(path)
+    if not os.path.exists(path_name):
+        os.makedirs(path_name)
 
 
-def get_content(filename):
+def get_content(filename, name_of_package):
     """
     Just replaces variable names from template files to user defined values from "settings"
+    :param name_of_package: Package Name
     :param filename: Name of File
     :return: replaced content
     """
-    current_path = "templates/" + filename
-    with open(current_path, 'r') as base_file:
+    with open(filename) as base_file:
         file_data = base_file.read()
     file_data = file_data.replace('$PACKAGE_NAME$', name_of_package)
-    file_data = file_data.replace('$APP_NAME$', name_of_app)
     return file_data
 
 
-java_path = "output/java/" + base_path
-resource_path = "output/res/"
+input_folder = "templates"
 
-file_list = [
-    ["AndroidManifest.xml", "output"],
-    ["base_header.xml", resource_path + "layout"],
-    ["base_layout.xml", resource_path + "layout"],
-    ["base_drawer.xml", resource_path + "menu"],
-    ["BaseActivity.java", java_path + "common"],
-    ["blank.xml", resource_path + "drawable"],
-    ["colors.xml", resource_path + "values"],
-    ["material_colors.xml", resource_path + "values"],
-    ["CurrentActivity.java", java_path + "common"],
-    ["Database.java", java_path + "database"],
-    ["Home.java", java_path + "activities"],
-    ["dimens.xml", resource_path + "values"],
-    ["home.xml", resource_path + "layout"],
-    ["icon_home.xml", resource_path + "drawable"],
-    ["SetUpActivity.java", java_path + "common"],
-    ["Splash.java", java_path],
-    ["splash.xml", resource_path + "layout"],
-    ["strings.xml", resource_path + "values"],
-    ["styles.xml", resource_path + "values"],
-    ["Preferences.java", java_path + "preferences"],
-    ["AppPrefs.java", java_path + "preferences"],
-    ["Login.java", java_path + "activities/login"],
-    ["login.xml", resource_path + "layout"],
-    ["RetroCalls.java", java_path + "background"],
-    ["RetroServices.java", java_path + "background"],
-    ["LoginUser.java", java_path + "background/tasks"]
-]
 
-for f in file_list:
-    make_folder(f[1])
-    with open("%s/%s" % (f[1], f[0]), 'w') as file:
-        file.write(get_content(f[0]))
+def write_files(name_of_package, java_path=""):
+    """
+    Creates files and folders from templates
+    :param name_of_package: Package Name from command line
+    :param java_path: relative java path
+    """
+    for path, subdirs, files in os.walk(input_folder):
+        # Make Folders
+        for s in subdirs:
+            pt = str(os.path.join(path, s))
+            pt = pt.replace(input_folder, "output")
+            if "java" in pt:
+                java_path = pt + "\\"
+            make_folder(pt)
+
+    # Make Folders for java
+    for d in name_of_package.split("."):
+        java_path += d
+        make_folder(java_path)
+        java_path += "\\"
+
+    for path, subdirs, files in os.walk(input_folder):
+        for name in files:
+            fn = os.path.join(path, name)
+            ot = fn.replace(input_folder, "output")
+            try:
+                # TODO: make this in cleaner way
+                temp_path = path + "\\" + name_of_package.replace(".", "\\")
+                temp_path = temp_path.replace(input_folder, "output")
+                if name == "BaseActivity.java":
+                    make_folder(temp_path + "\\common\\")
+                    with open(temp_path + "\\common\\" + name, "w") as f:
+                        f.write(get_content(fn, name_of_package))
+                elif name == "AppPrefs.java":
+                    make_folder(temp_path + "\\common\\")
+                    with open(temp_path + "\\common\\" + name, "w") as f:
+                        f.write(get_content(fn, name_of_package))
+                elif name == "Home.java":
+                    with open(temp_path + "\\" + name, "w") as f:
+                        f.write(get_content(fn, name_of_package))
+                else:
+                    with open(ot, "w") as f:
+                        f.write(get_content(fn, name_of_package))
+            except UnicodeDecodeError:
+                copyfile(fn, ot)
+
+
+if __name__ == "__main__":
+    if len(sys.argv[1:]) != 1:
+        raise Exception("Parse package name as argument like \'main.py "
+                        "com.example.package\'")
+    else:
+        write_files(sys.argv[1])

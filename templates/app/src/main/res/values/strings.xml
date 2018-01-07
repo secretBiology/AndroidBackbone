@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Manager</string>
+    <string name="header_subtitle">%1$d (%2$s)</string>
+
+    <!--Home related-->
+    <string name="home">Home</string>
+
+</resources>
